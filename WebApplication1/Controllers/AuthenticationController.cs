@@ -22,12 +22,12 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IConfiguration iconfiguration;
+        //private readonly IConfiguration iconfiguration;
 
-        AuthenticationController(IConfiguration iconfiguration)
-        {
-            this.iconfiguration = iconfiguration ?? throw new ArgumentNullException(nameof(iconfiguration));
-        }
+        //AuthenticationController(IConfiguration iconfiguration)
+        //{
+        //    this.iconfiguration = iconfiguration ?? throw new ArgumentNullException(nameof(iconfiguration));
+        //}
 
 
 
@@ -48,7 +48,14 @@ namespace WebApplication1.Controllers
                     new Claim(ClaimTypes.Role, "Guest"),
                     new Claim("Roles", "Guest"),
                     new Claim("RememberMe", user.RememberMe ?? "false"),
+                    
                 };
+
+                if (!string.IsNullOrEmpty(user.Fingerprint))
+                {
+                    claims.Add(new Claim("Fingerprint", user.Fingerprint));
+                }
+
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ConfigurationService.AppSetting["JWT:Secret"]));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                 var tokeOptions = new JwtSecurityToken(

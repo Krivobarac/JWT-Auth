@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './_components/login/login.component';
 import { ProductsComponent } from './_pages/products/products.component';
+import { FingerprintjsProAngularModule } from '@fingerprintjs/fingerprintjs-pro-angular';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,12 @@ import { ProductsComponent } from './_pages/products/products.component';
         // skipWhenExpired: true
       }
     }),
+    FingerprintjsProAngularModule.forRoot({
+      loadOptions: {
+        apiKey: "rtqoh06UdNEKMnK4j0Ms",
+        region: "eu"
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -18,5 +18,11 @@
             get;
             set;
         }
+
+        public string? Fingerprint
+        {
+            get;
+            set;
+        }
     }
 }
